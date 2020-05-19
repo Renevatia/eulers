@@ -4,8 +4,8 @@ This repository is for the group effort on Euler's Project and any future
 projects that make sense to be added into one project file
 
 current contributer:
-Engineer  -GMoney
-Builder   -Renevatia
+Engineer   -GMoney
+Builder    -Renevatia
 Researcher -Calpico
 
 In /answers WIP will have individual files and eventually be added as a function

@@ -16,6 +16,7 @@ int prompt();
 void questionSelect(int qNum);
 void printAnswer1(int aNum);
 void printAnswer2(long long aNum);
+void printAnswer3(string aStr);
 
 //question 11
 //------------------------------------------------------------------------------
@@ -75,6 +76,8 @@ void q11Solve()
     printAnswer2(currentMax);
 }
 
+//question 12
+//------------------------------------------------------------------------------
 void q12Solve()
 {
     long int currentTri = 1;
@@ -117,6 +120,73 @@ void q12Solve()
     cout << endl << "the " << answer2 << "th triangle";
     printAnswer2(answer);
 }
+
+//question 13
+//------------------------------------------------------------------------------
+void q13Solve()
+{
+    string line[100];
+    char trash;
+    int numArr[101][52];
+    string answer = "";
+
+    ifstream myfile ("q13.txt");
+
+    for (int i = 0; i < 100; i++)
+    {
+        getline(myfile, line[i]);
+        //myfile.get(trash);
+        
+    }
+    myfile.close();
+    for (int j = 0; j < 101; j++)
+    {
+        for (int i = 0; i < 52; i++)
+        {
+            numArr[j][i] = 0;
+        }
+    }
+    for (int i = 0; i < 100; i++)
+    {
+        for (int j = 0; j < 50; j++)
+        {
+            // leave 2 spaces in front of array by row for additions later
+            // char is an additional dimension in an array of strings
+            // taking the char - '0' in ascii order gives true int
+            // otherwise it gives char code in ascii
+            numArr[i][j + 2] = (line[i][j] - '0');
+        }
+    }
+    
+    
+    for (int i = 51; i >= 0; i--)
+    {
+        for (int j = 0; j < 100; j++)
+        {
+            numArr[100][i] = numArr[100][i] + numArr[j][i];
+        }
+        if (i > 0)
+        {
+            numArr[100][i - 1] = numArr[100][i] / 10;
+            numArr[100][i] = numArr[100][i] % 10;
+        }
+        cout << endl << "i = " << i << ", "<< numArr[98][i];
+    }
+    
+    answer = 
+    to_string(numArr[100][0]) +
+    to_string(numArr[100][1]) +
+    to_string(numArr[100][2]) +
+    to_string(numArr[100][3]) +
+    to_string(numArr[100][4]) +
+    to_string(numArr[100][5]) +
+    to_string(numArr[100][6]) +
+    to_string(numArr[100][7]) +
+    to_string(numArr[100][8]) +
+    to_string(numArr[100][9]);
+
+    printAnswer3(answer);
+}
 // menu
 //------------------------------------------------------------------------------
 int prompt()
@@ -139,7 +209,8 @@ void questionSelect(int qNum)
         case(12):
             q12Solve();
             break;
-        case(3):
+        case(13):
+            q13Solve();
             break;
         case(4):
             break;
@@ -173,8 +244,10 @@ void printAnswer2(long long aNum)
     cout << aNum;
 }
 
-void printAnswer3()
-{}
+void printAnswer3(string aStr)
+{
+    cout << endl << "Answer = " << aStr;
+}
 //------------------------------------------------------------------------------
 int main()
 {

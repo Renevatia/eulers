@@ -7,6 +7,7 @@
 #include <string>
 #include <chrono>
 #include <unistd.h>
+#include <cmath>
 
 using namespace std;
 
@@ -15,11 +16,15 @@ using namespace std;
 int prompt();
 void questionSelect(int qNum);
 void printAnswer1(int aNum);
-
+void printAnswer2(long long aNum);
 void q1Solve();
 void q2Solve();
 void q3Solve();
 void q4Solve();
+void q6Solve();
+void q7Solve();
+void q8Solve();
+void q9Solve();
 
 //question 1
 //------------------------------------------------------------------------------
@@ -126,7 +131,120 @@ void q4Solve()
 
     }
     printAnswer1(currentMax);
+}
 
+//question 6
+//------------------------------------------------------------------------------
+void q6Solve()
+{
+    int sum1 = 0;
+    int sum2 = 0;
+    for (int i = 1; i <= 100; i++)
+    {
+        sum1 = sum1 + pow(i, 2);
+        sum2 = sum2 + i;
+    }
+    sum2 = pow(sum2, 2);
+    printAnswer1(sum2-sum1);
+}
+
+//question 7
+//------------------------------------------------------------------------------
+void q7Solve()
+{
+    long currentPrime = 2;
+    long currentTest = 3;
+    for (int i = 1; i < 10000; i++)
+    {
+        for (currentTest = currentPrime + 1; currentTest > 0; currentTest++)
+        {
+            for (long j = 2; j <= (currentTest / 2) + 2; j++)
+            {
+                if (currentTest % j == 0)
+                {
+                    // not prime
+                    j = currentTest;
+                }else if (j == (currentTest / 2) + 2){
+                    //prime
+                    currentPrime = currentTest;
+                    currentTest = -999;
+                }
+            }
+        }
+    }
+    printAnswer1(currentPrime);
+}
+
+void q8Solve()
+{
+    string line;
+    long long currentMax = 1;
+    long long answer = 0;
+    ifstream myfile ("q8.txt");
+
+    getline(myfile, line);
+      
+    myfile.close();
+    
+    for (int i = 0; i < 1000-13; i++)
+    {
+        answer = 1;
+        for (int j = 0; j < 13; j++)
+        {
+            //cout << line.substr(i + j, 1);
+            answer = answer * stoi(line.substr(i + j, 1));
+        }
+        if (currentMax < answer)
+        {
+            currentMax = answer;
+        }
+    }
+    printAnswer2(currentMax);
+}
+
+void q9Solve()
+{
+    long answer;
+    // H has to be (414, 500)
+    for (int i = 414; i < 500; i++)
+    {
+        for (int j = 293; j >= 1; j--)
+        {
+            if (pow(j, 2) + pow(1000 - j - i, 2) == pow(i, 2))
+            {
+                answer = i * j * (1000 - j - i);
+            }
+        }
+    }
+    printAnswer2(answer);
+}
+
+void q10Solve()
+{
+    long long sum = 2;
+    for (long i = 3; i < 2000000; i++)
+    {
+        //cout << endl << "sqrt of " << i << " = " << static_cast<long>(sqrt(i));
+        for (long j = 2; j <= static_cast<long>(sqrt(i)) + 1; j++)
+        {
+            
+            if (i % j == 0)
+            {
+                // not prime
+                j = i;
+            }else if (j == static_cast<long>(sqrt(i)) + 1){
+                //prime
+                sum = sum + i;
+                j = i;
+                
+            }
+
+        }
+        if (i % 100000 == 0){
+            cout << endl << 5 * i / 100000 << " %";
+        }
+    }
+    printAnswer2(sum);
 }
 // menu
 //------------------------------------------------------------------------------
@@ -159,6 +277,21 @@ void questionSelect(int qNum)
         case(5):
             cout << "232792560, logic QED";
             break;  
+        case(6):
+            q6Solve();
+            break;
+        case(7):
+            q7Solve();
+            break; 
+        case(8):
+            q8Solve();
+            break; 
+        case(9):
+            q9Solve();
+            break; 
+        case(10):
+            q10Solve();
+            break; 
         default:
             cout << "Select a valid question";
             cout << endl;
@@ -170,6 +303,14 @@ void printAnswer1(int aNum)
 {
     cout << aNum;
 }
+
+void printAnswer2(long long aNum)
+{
+    cout << aNum;
+}
+
+void printAnswer3()
+{}
 //------------------------------------------------------------------------------
 int main()
 {

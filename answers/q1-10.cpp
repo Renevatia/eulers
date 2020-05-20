@@ -222,7 +222,7 @@ void q9Solve()
 void q10Solve()
 {
     long long sum = 2;
-    for (long i = 3; i < 2000000; i++)
+    for (long i = 3; i < 2000000; i = i + 2)
     {
         //cout << endl << "sqrt of " << i << " = " << static_cast<long>(sqrt(i));
         for (long j = 2; j <= static_cast<long>(sqrt(i)) + 1; j++)
@@ -240,9 +240,9 @@ void q10Solve()
             }
 
         }
-        if (i % 100000 == 0){
-            cout << endl << 5 * i / 100000 << " %";
-        }
+        //if (i % 100000 <= 1){
+        //    cout << endl << 5 * i / 100000 << " %";
+        //}
     }
     printAnswer2(sum);
 }

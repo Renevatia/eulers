@@ -8,6 +8,7 @@
 #include <chrono>
 #include <unistd.h>
 #include <cmath>
+
 using namespace std;
 
 // Protoype
@@ -187,6 +188,240 @@ void q13Solve()
 
     printAnswer3(answer);
 }
+
+//question 14
+//------------------------------------------------------------------------------
+void q14Solve()
+{
+    long long currentMax = 0;
+    long long currentNum = 0;
+    long long currentCount = 0;
+    long currentMaxVal = 0;
+
+    for (long i = 1000000; i > 3; i--)
+    {
+        currentNum = i;
+        currentCount = 1;
+        for (int j = 0; currentNum > 1;)
+        {
+            if (currentNum % 2 == 0)
+            {
+                currentNum = currentNum / 2;
+            }else{
+                currentNum = (3 * currentNum) + 1;
+            }
+            currentCount++;
+        }
+        currentMaxVal = (currentCount > currentMax)? i : currentMaxVal;
+        currentMax = (currentCount > currentMax)? currentCount : currentMax;
+    }
+    printAnswer2(currentMaxVal);
+}
+
+//question 15
+//------------------------------------------------------------------------------
+void q15Solve()
+{
+    // using bionomial coefficient (x+y; x)
+    long double answer = 1;
+    for (int i = 1; i <= 20; i++)
+    {
+        answer = answer * (i + 20);
+        answer = answer / (i);
+    }
+    printAnswer2(answer);
+}
+
+//question 16
+//------------------------------------------------------------------------------
+void q16Solve()
+{
+    int numArr[350];
+    int sum = 0;
+    for (int i = 0; i < 350; i++)
+    {
+        numArr[i] = 0;
+    }
+    numArr[349] = 2;
+    for (int i = 0; i < 999; i++)
+    {
+        cout << endl << "Here" << endl;
+        for (int j = 0; j < 350; j++)
+        {
+            numArr[j] = (numArr[j] * 2) % 10;
+            if (numArr[j + 1] >= 5 && j < 349)
+            {
+                numArr[j]++;
+            }
+        }
+    }
+    for (int i = 0; i < 350; i++)
+    {
+        sum = sum + numArr[i];
+    }
+    printAnswer2(sum);
+}
+
+//question 17
+//------------------------------------------------------------------------------
+void q17Solve()
+{
+    long letterCount = 0;
+    int test = 0;
+    int test2 = 0;
+    int test3 = 0;
+
+    for (int i = 1; i < 1000; i++)
+    {
+        test = i / 100;
+        switch(test)
+        {
+            case(0):
+                break;
+            case(1):
+                letterCount = letterCount + 10;
+                break;
+            case(2):
+                letterCount = letterCount + 10;
+                break;
+            case(3):
+                letterCount = letterCount + 12;
+                break;
+            case(4):
+                letterCount = letterCount + 11;
+                break;
+            case(5):
+                letterCount = letterCount + 11;
+                break;
+            case(6):
+                letterCount = letterCount + 10;
+                break;
+            case(7):
+                letterCount = letterCount + 12;
+                break;
+            case(8):
+                letterCount = letterCount + 12;
+                break;
+            case(9):
+                letterCount = letterCount + 11;
+                break;
+        }
+        test = i - ((i / 100) * 100);
+        test2 = i / 100;
+        // and
+        if (test > 0 && test2 > 0){letterCount = letterCount + 3;}
+        
+        // tens
+        test2 = test / 10;
+
+        // ones
+        test3 = test % 10;
+
+        switch(test2)
+        {
+            case(0):
+                break;
+            case(1):
+            // teens
+                switch(test3)
+                {
+                    case(0):
+                        letterCount = letterCount + 3;
+                        break;
+                    case(1):
+                        letterCount = letterCount + 6;
+                        break;
+                    case(2):
+                        letterCount = letterCount + 6;
+                        break;
+                    case(3):
+                        letterCount = letterCount + 8;
+                        break;
+                    case(4):
+                        letterCount = letterCount + 8;
+                        break;
+                    case(5):
+                        letterCount = letterCount + 7;
+                        break;
+                    case(6):
+                        letterCount = letterCount + 7;
+                        break;
+                    case(7):
+                        letterCount = letterCount + 9;
+                        break;
+                    case(8):
+                        letterCount = letterCount + 8;
+                        break;
+                    case(9):
+                        letterCount = letterCount + 8;
+                        break;
+                }
+                break;
+            case(2):
+                letterCount = letterCount + 6;
+                break;
+            case(3):
+                letterCount = letterCount + 6;
+                break;
+            case(4):
+                letterCount = letterCount + 5;
+                break;
+            case(5):
+                letterCount = letterCount + 5;
+                break;
+            case(6):
+                letterCount = letterCount + 5;
+                break;
+            case(7):
+                letterCount = letterCount + 7;
+                break;
+            case(8):
+                letterCount = letterCount + 6;
+                break;
+            case(9):
+                letterCount = letterCount + 6;
+                break;
+        }
+
+        if (test2 != 1)
+        {
+            switch(test3)
+            {
+                case(0):
+                    break;
+                case(1):
+                    letterCount = letterCount + 3;
+                    break;
+                case(2):
+                    letterCount = letterCount + 3;
+                    break;
+                case(3):
+                    letterCount = letterCount + 5;
+                    break;
+                case(4):
+                    letterCount = letterCount + 4;
+                    break;
+                case(5):
+                    letterCount = letterCount + 4;
+                    break;
+                case(6):
+                    letterCount = letterCount + 3;
+                    break;
+                case(7):
+                    letterCount = letterCount + 5;
+                    break;
+                case(8):
+                    letterCount = letterCount + 5;
+                    break;
+                case(9):
+                    letterCount = letterCount + 4;
+                    break;
+            }
+        }
+    }
+    letterCount = letterCount + 11;
+    printAnswer2(letterCount);
+}
 // menu
 //------------------------------------------------------------------------------
 int prompt()
@@ -212,13 +447,17 @@ void questionSelect(int qNum)
         case(13):
             q13Solve();
             break;
-        case(4):
+        case(14):
+            q14Solve();
             break;
-        case(5):
+        case(15):
+            q15Solve();
             break;  
-        case(6):
+        case(16):
+            q16Solve();
             break;
-        case(7):
+        case(17):
+            q17Solve();
             break; 
         case(8):
             break; 

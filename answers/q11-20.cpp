@@ -493,6 +493,97 @@ void q18Solve()
     printAnswer2(maxPath[14][14]);
 }
 
+//question 19
+//------------------------------------------------------------------------------
+void q19Solve()
+{
+    // year, month, day
+    int sundays = 0;
+    int dayCount = 0;
+    int days[200][12][31];
+    for (int i = 0; i < 200; i++)
+    {
+        for (int j = 0; j < 12; j++)
+        {
+            for (int k = 0; k < 31; k++)
+            {
+                days[i][j][k] = -1;
+            }
+        }
+    }
+
+    for (int i = 0; i < 200; i++)
+    {
+        for (int j = 0; j < 12; j++)
+        {
+            for (int k = 0; k < 31; k++)
+            {
+                switch (j)
+                {
+                    // less than 31 days
+                    case(3):
+                        days[i][j][k] = (k < 30)? 1 : -1;
+                        break;
+                    case(5):
+                        days[i][j][k] = (k < 30)? 1 : -1;
+                        break;
+                    case(8):
+                        days[i][j][k] = (k < 30)? 1 : -1;
+                        break;
+                    case(10):
+                        days[i][j][k] = (k < 30)? 1 : -1;
+                        break;
+                    // feb
+                    case(1):
+                        days[i][j][k] = (k < 28)? 1 : -1;
+                        // 29th of feb on leap or every 400 yr century
+                        if (k == 29 && ((i + 1900)  % 400 == 0 || 
+                        ((i + 1900) % 100 != 0 && (i + 1900) % 4 == 0)))
+                        {
+                            days[i][j][k] = 1;
+                        }
+                        break;
+                    // 31 days
+                    default:
+                        days[i][j][k] = 1;
+                        break;
+                }
+                
+            }
+        }
+    }
+
+    for (int i = 0; i < 200; i++)
+    {
+        for (int j = 0; j < 12; j++)
+        {
+            for (int k = 0; k < 31; k++)
+            {
+                if(days[i][j][k] > 0)
+                {
+                    dayCount = dayCount + days[i][j][k];
+                    if(dayCount % 7 > 0)
+                    {
+                        days[i][j][k] = 0;
+                    }
+                }
+                
+            }
+        }
+    }
+
+    for (int i = 1; i < 101; i++)
+    {
+        for (int j = 0; j < 12; j++)
+        {
+            if (days[i][j][0] > 0)
+            {
+                sundays = sundays + days[i][j][0];
+            }
+        }
+    }
+    printAnswer2(sundays);
+}
 // menu
 //------------------------------------------------------------------------------
 int prompt()
@@ -533,7 +624,8 @@ void questionSelect(int qNum)
         case(18):
             q18Solve();
             break; 
-        case(9):
+        case(19):
+            q19Solve();
             break; 
         case(10):
             break; 

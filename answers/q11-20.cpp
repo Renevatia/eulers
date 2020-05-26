@@ -584,6 +584,43 @@ void q19Solve()
     }
     printAnswer2(sundays);
 }
+
+//question 20
+//------------------------------------------------------------------------------
+void q20Solve()
+{
+    int answer[200];
+    int sum = 0;
+    for (int i = 0; i < 200; i++)
+    {
+        answer[i] = 0;
+    }
+    answer[199] = 1;
+    for (int i = 1; i <= 100; i++)
+    {
+        for (int j = 0; j < 200; j++)
+        {
+            // max is 900
+            answer[j] = answer[j] * i;
+            // cout << answer[j];
+        }
+        for (int j = 199; j >= 2; j--)
+        {
+            answer[j - 2] = answer[j - 2] + answer[j] / 100;
+            answer[j - 1] = answer[j - 1] + (answer[j] 
+            - ((answer[j] / 100) * 100)) / 10;
+            answer[j] = answer[j] % 10;
+            
+        }
+        // cout << endl;
+    }
+
+    for (int i = 0; i < 200; i++)
+    {
+        sum = sum + answer[i];
+    }
+    printAnswer2(sum);
+}
 // menu
 //------------------------------------------------------------------------------
 int prompt()
@@ -627,7 +664,8 @@ void questionSelect(int qNum)
         case(19):
             q19Solve();
             break; 
-        case(10):
+        case(20):
+            q20Solve();
             break; 
         default:
             cout << "Select a valid question";

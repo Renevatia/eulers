@@ -422,6 +422,77 @@ void q17Solve()
     letterCount = letterCount + 11;
     printAnswer2(letterCount);
 }
+
+//question 18
+//------------------------------------------------------------------------------
+void q18Solve()
+{
+    // this is basically binary max path
+    string line[15];
+    char trash;
+    long numArr[15][15];
+    long maxPath[15][15];
+    long uno = 0;
+    long dos = 0;
+
+    ifstream myfile ("q18.txt");
+
+    for (int i = 0; i < 15; i++)
+    {
+        getline(myfile, line[i]);
+        //myfile.get(trash);
+        for (int j = 0; j < 15; j++)
+        {
+            numArr[i][j] = -1;
+            maxPath[i][j] = 0;
+        }
+    }
+    myfile.close();
+
+    for (int i = 0; i < 15; i++)
+    {
+        for (int j = 0; j < i + 1; j++)
+        {
+            numArr[i - j][j] = (line[i][3 * j] - '0') * 10 
+            + (line[i][3 * j + 1] - '0');
+            
+        }
+        
+    }
+
+    // compute incremental max path
+    maxPath[0][0] = numArr[0][0];
+    for (int i = 0; i < 15; i++)
+    {
+        for (int j = 0; j < i + 1; j++)
+        {
+            if (numArr[i - j][j] >= 0 && (i > 0 || j > 0))
+            {
+                // number above
+                uno = (i - j > 0)? maxPath[i - j - 1][j] : 0;
+                // number left
+                dos = (j > 0)? maxPath[i - j][j - 1] : 0;
+                
+                maxPath[i - j][j] = (uno > dos)? uno : dos;
+                maxPath[i - j][j] = maxPath[i - j][j] + numArr[i - j][j];
+            }
+        }
+    }
+    for (int i = 0; i < 15; i++)
+    {
+        for (int j = 0; j < 15; j++)
+        {
+            // this finds largest incremental path
+            // in this case no negative number so it finds absolute full path
+            cout << maxPath[i][j] << ", ";
+            maxPath[14][14] = (maxPath[i][j] > maxPath[14][14])?
+            maxPath[i][j] : maxPath[14][14];
+        }
+        cout << endl;
+    }
+    printAnswer2(maxPath[14][14]);
+}
+
 // menu
 //------------------------------------------------------------------------------
 int prompt()
@@ -459,7 +530,8 @@ void questionSelect(int qNum)
         case(17):
             q17Solve();
             break; 
-        case(8):
+        case(18):
+            q18Solve();
             break; 
         case(9):
             break; 

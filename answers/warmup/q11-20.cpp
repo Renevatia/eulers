@@ -91,13 +91,13 @@ void q12Solve()
 
     for (currentNum = 2; currentNum < 100000; currentNum++)
     {
-        divisorCount = 1;
+        divisorCount = 0;
         currentTri = currentTri + currentNum;
         // checking divisors
         // assuming that it will at least have 2 2 3 5
         if (currentTri % 60 == 0)
         {
-            for (int i = 1; i <= currentTri / 2 + 1; i++)
+            for (int i = 1; i <= currentTri; i++)
             {
                 if (currentTri % i == 0)
                 {
@@ -236,28 +236,26 @@ void q15Solve()
 //------------------------------------------------------------------------------
 void q16Solve()
 {
-    int numArr[1000];
-    long sum = 0;
-    for (long i = 0; i < 1000; i++)
+    int numArr[350];
+    int sum = 0;
+    for (int i = 0; i < 350; i++)
     {
         numArr[i] = 0;
     }
-    numArr[1000] = 2;
-
-    for (long i = 0; i < 999; i++)
+    numArr[349] = 2;
+    for (int i = 0; i < 999; i++)
     {
-        for (long j = 0; j < 1000; j++)
+        cout << endl << "Here" << endl;
+        for (int j = 0; j < 350; j++)
         {
             numArr[j] = (numArr[j] * 2) % 10;
-            if (numArr[j + 1] >= 5 && j < 999)
+            if (numArr[j + 1] >= 5 && j < 349)
             {
                 numArr[j]++;
             }
         }
     }
-
-    
-    for (long i = 0; i < 1000; i++)
+    for (int i = 0; i < 350; i++)
     {
         sum = sum + numArr[i];
     }
